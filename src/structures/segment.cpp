@@ -3,9 +3,10 @@
 //
 
 #include "segment.h"
+#include "math/fast_math.h"
 
 /* vec3 definitions */
-openray::vec3::vec3(int x, int y, int z)
+openray::vec3::vec3(float x, float y, float z)
     :dim({x, y, z})
 {}
 
@@ -16,18 +17,18 @@ openray::vec3::vec3(const openray::vec3 &other)
 
 // Vector dot product
 openray::vec3 openray::vec3::dot(const openray::vec3 &other) {
-    int dot_x = *(this->x) * *(other.x);
-    int dot_y = *(this->y) * *(other.y);
-    int dot_z = *(this->z) * *(other.z);
+    float dot_x = *(this->x) * *(other.x);
+    float dot_y = *(this->y) * *(other.y);
+    float dot_z = *(this->z) * *(other.z);
     return {dot_x, dot_y, dot_z};
 }
 
 // Vector cross product
 // Returns a vector with a 90-degree angle to both composite vectors (unit vector)
 openray::vec3 openray::vec3::cross(const openray::vec3 &other) {
-    int cross_x = *(this->y) * *(other.z) - *(this->z) * *(other.y);
-    int cross_y = *(this->z) * *(other.x) - *(this->x) * *(other.z);
-    int cross_z = *(this->x) * *(other.y) - *(this->y) * *(other.x);
+    float cross_x = *(this->y) * *(other.z) - *(this->z) * *(other.y);
+    float cross_y = *(this->z) * *(other.x) - *(this->x) * *(other.z);
+    float cross_z = *(this->x) * *(other.y) - *(this->y) * *(other.x);
     return {cross_x, cross_y, cross_z};
 }
 
@@ -38,16 +39,28 @@ openray::vec3 openray::vec3::operator+(const openray::vec3 &other) {
 
 // Scale a vec3 by 'scalar'
 openray::vec3 openray::vec3::operator*(const int scalar) {
-    return openray::vec3({*(this->x) * scalar,
-                          *(this->y) * scalar,
-                          *(this->z) * scalar}
+    return openray::vec3({*(this->x) * (float) scalar,
+                          *(this->y) * (float) scalar,
+                          *(this->z) * (float) scalar
+                            }
                           );
 }
 
 // Scale a vec3 by 'scalar'
 openray::vec3 openray::vec3::operator*(const float scalar) {
-    return openray::vec3({static_cast<int>(*(this->x) * scalar),
-                          static_cast<int>(*(this->y) * scalar),
-                          static_cast<int>(*(this->z) * scalar)}
+    return openray::vec3({(*(this->x) * scalar),
+                          (*(this->y) * scalar),
+                          (*(this->z) * scalar)}
     );
+}
+
+openray::vec3 openray::vec3::norm() {
+    float divisor = openray::inverse_sqrt(*(this->x) * *(this->x) +
+                                                 *(this->y) * *(this->y) +
+                                                 *(this->z) * *(this->z)
+                                                 );
+    return {(*(this->x) * divisor),
+            (*(this->y) * divisor),
+            (*(this->z) * divisor)
+            };
 }
