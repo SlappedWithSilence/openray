@@ -10,8 +10,6 @@ using namespace std;
 
 int main() {
 
-    vec3 v = vec3(0,1,0);
-
 
     return 1;
 }
