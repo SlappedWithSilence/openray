@@ -30,6 +30,12 @@ namespace openray {
         return y;
     }
 
+    // Sum two floats against a common ration of expression.
+    // Ex, a = 6, b = 4, b_ratio = 0.5 -> 3 + 2 = 5
+    float mix(const float &a, const float &b, const float &b_ratio) {
+        return (b * b_ratio) + (a * (1 - b_ratio));
+    }
+
 } // openray
 
 #endif //OPENRAY_FAST_MATH_H
