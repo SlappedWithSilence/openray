@@ -23,5 +23,5 @@ TEST(vec3Test, AddTwoVec3s) {
 
     EXPECT_EQ(v_sum.x == 1 && v_sum.y == 1 && v_sum.z == 1, true);
     v_sum = v1 + v2;
-    EXPECT_EQ(v_sum.x == (v1.x + v2.x) && v_sum.y == (v1.y + v2.y) && v_sum.x == (v1.z + v2.z), true);
+    EXPECT_EQ(v_sum.x == (v1.x + v2.x) && v_sum.y == (v1.y + v2.y) && v_sum.z == (v1.z + v2.z), true);
 }
