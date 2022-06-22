@@ -26,6 +26,7 @@ namespace openray {
 
         // Operator overloads
         vec3 operator+ (const vec3 &other);
+        vec3 operator- (const vec3 &other);
         vec3 operator* (int scalar) const;
         vec3 operator* (float scalar) const;
         bool operator== (const vec3 &other) const;
@@ -48,6 +49,8 @@ namespace openray {
         void lighten(Color light_source_color);
 
         // Operator overloads
+        Color operator- (const Color &other) const;
+        Color operator- (int scalar) const;
         Color operator+ (const Color &other) const;
         Color operator+ (int scalar) const;
         Color operator* (int scalar) const;

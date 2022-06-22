@@ -69,7 +69,14 @@ std::ostream &openray::operator<<(std::ostream &out, openray::vec3 &v) {
 }
 
 bool openray::vec3::operator==(const openray::vec3 &other) const {
+    if (this == &other) {
+        return true;
+    }
     return (x == other.x) && (y == other.y) && (z == other.z);
+}
+
+openray::vec3 openray::vec3::operator-(const openray::vec3 &other) {
+    return {x-other.x, y - other.y, z - other.z};
 }
 
 /*** Color Definitions ***/
@@ -102,4 +109,12 @@ openray::Color openray::Color::operator*(int scalar) const {
 // Return a color vector scaled by 'scalar'. Float arithmetic cast to an int.
 openray::Color openray::Color::operator*(float scalar) const {
     return {(int)((float) r * scalar), (int)((float) g * scalar), (int)((float) b * scalar)};
+}
+
+openray::Color openray::Color::operator-(const openray::Color &other) const {
+    return {r - other.r, g - other.g, b - other.b};
+}
+
+openray::Color openray::Color::operator-(int scalar) const {
+    return {r - scalar, g - scalar, b - scalar};
 }
