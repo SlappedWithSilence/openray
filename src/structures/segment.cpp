@@ -68,27 +68,38 @@ std::ostream &openray::operator<<(std::ostream &out, openray::vec3 &v) {
     return out;
 }
 
+bool openray::vec3::operator==(const openray::vec3 &other) const {
+    return (x == other.x) && (y == other.y) && (z == other.z);
+}
+
 /*** Color Definitions ***/
 openray::Color::Color(int r, int g, int b)
     : r(r), g(g), b(b)
 {}
 
+// Sum current color channels with argument's color values
 void openray::Color::lighten(openray::Color light_source_color) {
-
+    r += light_source_color.r;
+    g += light_source_color.g;
+    b += light_source_color.b;
 }
 
-openray::Color openray::Color::operator+(const openray::Color &other) {
-    return openray::Color();
+// Returns a Color vector with summed channel values
+openray::Color openray::Color::operator+(const openray::Color &other) const {
+    return {r + other.r, g + other.g, b + other.b};
 }
 
-openray::Color openray::Color::operator+(int scalar) {
-    return openray::Color();
+// Returns a Color vector offset by 'offset'
+openray::Color openray::Color::operator+(int offset) const {
+    return {r + offset, g + offset, b + offset};
 }
 
-openray::Color openray::Color::operator*(int scalar) {
-    return openray::Color();
+// Returns a color vector scaled by 'scalar'. Integer arithmetic
+openray::Color openray::Color::operator*(int scalar) const {
+    return {(r * scalar), (g * scalar), (b * scalar)};
 }
 
-openray::Color openray::Color::operator*(float scalar) {
-    return openray::Color();
+// Return a color vector scaled by 'scalar'. Float arithmetic cast to an int.
+openray::Color openray::Color::operator*(float scalar) const {
+    return {(int)((float) r * scalar), (int)((float) g * scalar), (int)((float) b * scalar)};
 }

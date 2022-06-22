@@ -28,6 +28,7 @@ namespace openray {
         vec3 operator+ (const vec3 &other);
         vec3 operator* (int scalar) const;
         vec3 operator* (float scalar) const;
+        bool operator== (const vec3 &other) const;
         friend std::ostream& operator<<(std::ostream &out, vec3 &v);
 
     };
@@ -47,15 +48,15 @@ namespace openray {
         void lighten(Color light_source_color);
 
         // Operator overloads
-        Color operator+ (const Color &other);
-        Color operator+ (int scalar);
-        Color operator* (int scalar);
-        Color operator* (float scalar);
+        Color operator+ (const Color &other) const;
+        Color operator+ (int scalar) const;
+        Color operator* (int scalar) const;
+        Color operator* (float scalar) const;
     };
 
     struct Ray: DirectionalVector {
         int depth {0};
-        const int MAX_DEPTH = {5};
+        const int MAX_DEPTH {5};
     };
 }
 
