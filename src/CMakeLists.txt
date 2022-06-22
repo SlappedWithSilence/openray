@@ -1,5 +1,3 @@
-
-
 SET(RENDER
         render/render.cpp
         render/render.h)
