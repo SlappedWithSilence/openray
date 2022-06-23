@@ -11,7 +11,15 @@
 struct Primitive {
     openray::vec3 origin {0,0,0};
     openray::Color surface_color {128,128,128}, emission_color {30,30,30};
-    float transparency, reflectivity = 0;
+    float transparency {0}, reflectivity {0};
+
+    // Constructors
+    Primitive() = default;
+    Primitive(const openray::vec3 &origin,
+              const openray::Color &surface_color,
+              const openray::Color &emission_color,
+              float transparency = 0, float reflectivity = 0
+              );
 
     // Functions
     [[nodiscard]] virtual bool intersect(const openray::DirectionalVector &ray) const;
@@ -19,7 +27,11 @@ struct Primitive {
 };
 
 struct Sphere : Primitive {
-
+    float radius {1};
+    Sphere() = default;
+    explicit Sphere(float radius)
+        : radius(radius)
+    {}
 };
 
 struct Cube : Primitive {
