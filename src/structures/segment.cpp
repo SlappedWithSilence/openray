@@ -5,6 +5,7 @@
 #include "segment.h"
 #include "math/fast_math.h"
 
+#include <cmath>
 #include <ostream>
 #include <cmath>
 
@@ -87,7 +88,7 @@ openray::vec3 openray::vec3::operator+(const openray::vec3 &other) const {
     return {x + other.x, y+other.y, z+other.z};
 }
 
-openray::vec3 openray::vec3::operator-(const openray::vec3 &other) {
+openray::vec3 openray::vec3::operator-(const openray::vec3 &other) const{
     return {x-other.x, y - other.y, z - other.z};
 }
 
@@ -149,7 +150,7 @@ openray::Color openray::Color::operator-(int scalar) const {
 }
 
 float openray::Ray::length() {
-    return sqrt(length2());
+    return std::sqrt(length2());
 }
 
 float openray::Ray::length2() {
