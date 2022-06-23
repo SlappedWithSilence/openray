@@ -28,7 +28,7 @@ namespace openray {
 
         // Operator overloads
         vec3 operator + (const vec3 &other) const;
-        vec3 operator - (const vec3 &other);
+        vec3 operator - (const vec3 &other) const;
         vec3 operator * (int scalar) const;
         vec3 operator * (float scalar) const;
         vec3& operator += (const vec3 &other);
@@ -36,14 +36,6 @@ namespace openray {
         bool  operator == (const vec3 &other) const;
         friend std::ostream& operator<<(std::ostream &out, vec3 &v);
 
-    };
-
-    struct DirectionalVector {
-        vec3 origin {0,0,0};
-        vec3 endpoint {1,1,1};
-
-        float length();
-        float length2();
     };
 
     struct Color {
@@ -64,9 +56,22 @@ namespace openray {
         Color operator* (float scalar) const;
     };
 
-    struct Ray: DirectionalVector {
+    struct Ray {
+        Ray(const vec3 &origin, const vec3 &direction, int depth, int max_depth);
+
+        vec3 origin {0, 0, 0};
+        vec3 direction {1,1,1};
         int depth {0};
-        const int MAX_DEPTH {5};
+        int max_depth {5};
+        Color transmission_color {0,0,0};
+
+        // Constructors
+        Ray() = default;
+        Ray(const vec3 &origin, const vec3 &direction, int depth, int max_depth = 5, const Color &transmission_color = {0,0,0});
+
+        // Functions
+        float length();
+        float length2();
     };
 }
 

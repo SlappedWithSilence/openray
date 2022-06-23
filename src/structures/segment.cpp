@@ -148,12 +148,16 @@ openray::Color openray::Color::operator-(int scalar) const {
     return {r - scalar, g - scalar, b - scalar};
 }
 
-float openray::DirectionalVector::length() {
+float openray::Ray::length() {
     return sqrt(length2());
 }
 
-float openray::DirectionalVector::length2() {
-    vec3 diff = endpoint - origin;
+float openray::Ray::length2() {
+    vec3 diff = direction - origin;
     return diff.x * diff.x + diff.y * diff.y + diff.z * diff.z;
 }
+
+openray::Ray::Ray(const openray::vec3& origin, const openray::vec3& direction, int depth, int max_depth, const Color &transmission_color)
+    : origin(origin), direction(direction), depth(depth), max_depth(max_depth), transmission_color(transmission_color)
+{}
 
