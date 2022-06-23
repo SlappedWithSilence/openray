@@ -6,7 +6,7 @@
 #include "primitive.h"
 
 
-bool Primitive::intersect(const openray::DirectionalVector &ray) const {
+bool Primitive::intersect(const openray::Ray &ray) const {
     std::cout << "[Error] Primitive::intersect called!" << std::endl;
     return false;
 }
@@ -18,6 +18,16 @@ Primitive::Primitive(const openray::vec3 &origin, const openray::Color &surface_
                      reflectivity(reflectivity)
  {}
 
-openray::DirectionalVector Primitive::normal(const openray::vec3 &surface_point) const {
+openray::Ray Primitive::normal(const openray::vec3 &surface_point) const {
     return {};
+}
+
+bool Sphere::intersect(const openray::Ray &ray) const {
+    float dist = ray.origin.dot(origin);
+
+    // If the sphere is in front of the ray
+    if (dist > 0) {
+        openray::vec3 ray_orig_to_sphere_orig = origin - ray.origin;
+    }
+    return false;
 }

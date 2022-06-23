@@ -22,8 +22,8 @@ struct Primitive {
               );
 
     // Functions
-    [[nodiscard]] virtual bool intersect(const openray::DirectionalVector &ray) const;
-    [[nodiscard]] virtual openray::DirectionalVector normal(const openray::vec3 &surface_point) const;
+    [[nodiscard]] virtual bool intersect(const openray::Ray &ray) const;
+    [[nodiscard]] virtual openray::Ray normal(const openray::vec3 &surface_point) const;
 };
 
 struct Sphere : Primitive {
@@ -32,6 +32,8 @@ struct Sphere : Primitive {
     explicit Sphere(float radius)
         : radius(radius)
     {}
+
+    [[nodiscard]] bool intersect(const openray::Ray &ray) const override;
 };
 
 struct Cube : Primitive {
