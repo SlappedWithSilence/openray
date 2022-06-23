@@ -20,16 +20,20 @@ namespace openray {
         vec3(const vec3 &other);
 
         // Functions
-        [[nodiscard]] vec3 dot(const vec3 &other);
+        [[nodiscard]] float dot(const vec3 &other) const;
         [[nodiscard]] vec3 cross(const vec3 &other) const;
-        [[nodiscard]] vec3 norm() const;
+        [[nodiscard]] vec3 & norm();
+        [[nodiscard]] float length() const;
+        [[nodiscard]] float length2() const;
 
         // Operator overloads
-        vec3 operator+ (const vec3 &other);
-        vec3 operator- (const vec3 &other);
-        vec3 operator* (int scalar) const;
-        vec3 operator* (float scalar) const;
-        bool operator== (const vec3 &other) const;
+        vec3 operator + (const vec3 &other) const;
+        vec3 operator - (const vec3 &other);
+        vec3 operator * (int scalar) const;
+        vec3 operator * (float scalar) const;
+        vec3& operator += (const vec3 &other);
+        vec3& operator *= (const vec3 &other);
+        bool  operator == (const vec3 &other) const;
         friend std::ostream& operator<<(std::ostream &out, vec3 &v);
 
     };
@@ -37,6 +41,9 @@ namespace openray {
     struct DirectionalVector {
         vec3 origin {0,0,0};
         vec3 endpoint {1,1,1};
+
+        float length();
+        float length2();
     };
 
     struct Color {
