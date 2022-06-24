@@ -22,18 +22,20 @@ struct Primitive {
               );
 
     // Functions
-    [[nodiscard]] virtual bool intersect(const openray::Ray &ray) const;
+    [[nodiscard]] virtual bool intersect(const openray::Ray &ray, std::vector<float> &intersection_lengths) const;
     [[nodiscard]] virtual openray::Ray normal(const openray::vec3 &surface_point) const;
 };
 
 struct Sphere : Primitive {
     float radius {1};
     Sphere() = default;
-    explicit Sphere(float radius)
-        : radius(radius)
-    {}
+    Sphere(const openray::vec3 &origin, float radius,
+              const openray::Color &surface_color,
+              const openray::Color &emission_color,
+              float transparency = 0, float reflectivity = 0
+    );
 
-    [[nodiscard]] bool intersect(const openray::Ray &ray) const override;
+    [[nodiscard]] bool intersect(const openray::Ray &ray, std::vector<float> &intersection_lengths) const override;
 };
 
 struct Cube : Primitive {
